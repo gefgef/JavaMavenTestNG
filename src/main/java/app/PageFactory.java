@@ -34,6 +34,7 @@ public class PageFactory {
             Thread.sleep(seconds * 1000);
         } catch (Exception ex) {
             System.err.println(ex.toString());
+            ex.printStackTrace();
         }
     }
 }

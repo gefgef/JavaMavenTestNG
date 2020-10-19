@@ -3,6 +3,8 @@ package app;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import pages.LoginPage;
@@ -15,12 +17,16 @@ public class TestFactory {
     public PageFactory pageFactory;
     public LoginPage loginPage;
 
+    @Parameters({ "browser" })
     @BeforeTest
-    public void SetUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, 10);
+    public void SetUp(@Optional("chrome") String browser) {
+
+        BrowserFactory factory = new BrowserFactory(browser);
+        driver = factory.CreateDriver();
+
+        driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, 15);
+
     }
 
     @AfterTest
