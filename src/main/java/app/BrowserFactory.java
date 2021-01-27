@@ -1,21 +1,23 @@
 package app;
 
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BrowserFactory {
 
     private ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
     private String browser;
+    private Logger logger;
 
-    public BrowserFactory(String browser) {
+    public BrowserFactory(String browser, Logger logger) {
         this.browser = browser.toLowerCase();
+        this.logger = logger;
     }
 
     public WebDriver CreateDriver() {
-
+        logger.info("Creating local " + browser + " driver");
         switch (browser) {
             case "chrome":
             default:
@@ -31,5 +33,4 @@ public class BrowserFactory {
         }
         return driver.get();
     }
-
 }

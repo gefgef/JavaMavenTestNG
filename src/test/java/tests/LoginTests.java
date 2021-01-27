@@ -1,31 +1,29 @@
 package tests;
 
-import app.TestFactory;
-import org.openqa.selenium.By;
+import app.Utility;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class LoginTests extends TestFactory {
+public class LoginTests extends Utility {
 
-    @BeforeTest
-    public void closeCookiePopup() {
-        driver.get("https://www.for-me-online.de/");
-        pageFactory().waitForElementIsVisible(By.cssSelector("#onetrust-accept-btn-handler"));
-        pageFactory().Sleep(2);//used to avoid JavaScript animation
-        driver.findElement(By.cssSelector("#onetrust-accept-btn-handler")).click();
-        pageFactory().waitForElementInvisible(By.cssSelector("#onetrust-accept-btn-handler"));
+    @Test
+    public void loginWithValidCreds() {
+        //Arrange
+        openPage("https://www.for-me-online.de/anmelden");
+
+        //Act
+        loginPage().login("gefdetest@yopmail.com", "Meganom2013");
+
+        //Assert
+        header().waitUntilUserIsLoggedIn();
+        Assert.assertTrue(header().isUserLoggedIn());
     }
 
     @Test
-    public void loginWithValidCredentials() {
-        //Arrange
-        driver.get("https://www.for-me-online.de/");
-        driver.findElement(By.cssSelector("a.header-account__login-link")).click();
-        //Act
-        loginPage().login("gefgertest@yopmail.com", "Geftest123");
-        pageFactory().waitForElementIsVisible(By.cssSelector(".header-account__profile-link"));
-        //Assert
-        Assert.assertTrue(driver.getCurrentUrl().contains("login-successful"));
-        Assert.assertTrue(driver.findElement(By.cssSelector(".header-account__profile-link")).isDisplayed());
+    public void loginWithEmptyFields() {
+        openPage("https://www.for-me-online.de/anmelden");
+        loginPage().login("", "");
+        Assert.assertFalse(header().isUserLoggedIn());
+        Assert.assertTrue(loginPage().areValidationErrorsDisplayed());
     }
 }
