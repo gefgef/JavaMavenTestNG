@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
@@ -38,6 +39,30 @@ public class BasePage {
     public void type(By selector, String text) {
         logger.info("Typing text '" + text + "' into field " + selector.toString());
         driver.findElement(selector).sendKeys(text);
+    }
+
+    public void checkCheckbox(By selector) {
+        logger.info("Checking checkbox " + selector.toString());
+        WebElement checkbox = driver.findElement(selector);
+        if (!checkbox.isSelected())
+            checkbox.click();
+    }
+
+    public void checkCheckbox(WebElement checkbox) {
+        logger.info("Checking checkbox " + checkbox.toString());
+        if (!checkbox.isSelected())
+            checkbox.click();
+    }
+
+    public void selectByValue(WebElement dropdown, String value) {}
+    public void selectByIndex(WebElement element, int index) {
+        Select dropdown = new Select(element);
+        dropdown.selectByIndex(index);
+    }
+    public void selectByText(WebElement dropdown, String text) {}
+    public String getSelectedOptionText(WebElement element) {
+        Select dropdown = new Select(element);
+        return dropdown.getFirstSelectedOption().getText();
     }
 
     //WAIT METHODS

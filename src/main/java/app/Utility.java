@@ -10,8 +10,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Utility extends TestFactory {
 
     //PAGES
+    public BasePage basePage;
     public LoginPage loginPage;
     public HeaderComponent header;
+
+    public BasePage base() {
+        if (basePage == null)
+            basePage = new BasePage(driver, wait, logger);
+        return basePage;
+    }
 
     public LoginPage loginPage() {
         if (loginPage == null)
