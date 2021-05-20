@@ -78,6 +78,10 @@ public class BasePage {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
+    public void waitForAlertPresent() {
+        wait.until(ExpectedConditions.alertIsPresent());
+    }
+
     //OTHERS METHODS
     public boolean isElementPresentOnPage(By selector) {
         return (driver.findElements(selector).size() > 0);

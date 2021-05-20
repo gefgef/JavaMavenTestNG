@@ -22,6 +22,8 @@ public class TestFactory {
 
         BrowserFactory factory = new BrowserFactory(browser, logger);
         driver = factory.CreateDriver();
+        //BrowserStack browserStack = new BrowserStack(logger);
+        //driver = browserStack.CreateDriver();
 
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 15);

@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.*;
 
+import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Utility extends TestFactory {
@@ -50,5 +52,21 @@ public class Utility extends TestFactory {
 
     public int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
+    }
+
+    public void SwitchToWindowWithTitle(String expectedTitle) {
+        logger.info("Switching to tab: " + expectedTitle);
+        String firstWindow = driver.getWindowHandle();
+        Set<String> allWindows = driver.getWindowHandles();
+
+        for (String allWindow : allWindows) {
+            String windowHandle = allWindow.toString();
+            if (!windowHandle.equals(firstWindow)) {
+                driver.switchTo().window(windowHandle);
+                if (driver.getTitle().equals(expectedTitle)) {
+                    break;
+                }
+            }
+        }
     }
 }
