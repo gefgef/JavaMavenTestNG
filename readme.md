@@ -13,3 +13,5 @@ Comments
 --------
 This is how I see the simplest Page Object implementation without BDD. We have TestFactory here to set up/tear down WebDriver. Also, it is the base class for inheritance for tests and pages declared here, so we can easily call them in tests.
 Page Factory contains constructor to pass WebDriver and Wait to our tests plus common helping methods.
+
+![Bugs!](/src/main/resources/files/bugs.jpg)
